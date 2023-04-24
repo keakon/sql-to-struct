@@ -116,21 +116,22 @@ func bytesToString(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }
 
-func parseSQL(sql []byte, tableName string) (tables []Table) {
+func parseSQL(sql []byte, tableName string) []Table {
 	sql = bytes.ToLower(sql)
 	s := bytesToString(sql)
 
 	if tableName == "" {
 		matches := pattern1.FindAllStringSubmatch(s, -1)
+		tables := make([]Table, 0, len(matches))
 		for _, match := range matches {
 			tables = append(tables, parseTable(match))
 		}
+		return tables
 	} else {
 		p := regexp.MustCompile(fmt.Sprintf(pattern3, tableName))
 		match := p.FindStringSubmatch(s)
-		tables = append(tables, parseTable(match))
+		return []Table{parseTable(match)}
 	}
-	return
 }
 
 func parseTable(match []string) Table {

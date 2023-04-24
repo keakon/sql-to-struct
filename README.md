@@ -4,13 +4,13 @@
 go run . <file_path> [<table_name>] [mode=sql/json/sb/sql+sb/...]
 ```
 
-## 生成所有表
+## 输出所有表
 
 ```bash
 go run . ~/Workspace/db/sql/mysql/createdb.sql  # 改为实际路径
 ```
 
-## 生成指定表
+## 输出指定表
 
 ```bash
 go run . createdb.sql user
@@ -30,7 +30,7 @@ go run . createdb.sql mode=sql+sb
 	```go
 	type User struct {
 		ID       uint32 `db:"id"`
-		TenantID uint16 `db:"tenant_id" json:"tenant_id"`
+		TenantID uint16 `db:"tenant_id"`
 	}
 	```
 * json
